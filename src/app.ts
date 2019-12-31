@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
+import bodyParser from "body-parser";
 
 import indexRoutes from './routes/index'
 import restauranteRoutes from './routes/restaurantes'
@@ -25,6 +26,10 @@ class App {
     this.express.set('view engine', 'pug')
     this.express.use(express.static(path.join(__dirname, 'public')));
     this.express.use(cors())
+    //Allows us to receive requests with data in json format
+    this.express.use(bodyParser.json({ limit: '50mb' }));
+    //Allows us to receive requests with data in x-www-form-urlencoded format
+    this.express.use(bodyParser.urlencoded({ limit: '50mb', extended:true}));
   };
   
   private database(): void {

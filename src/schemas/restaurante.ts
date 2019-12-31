@@ -1,17 +1,14 @@
-import { Schema, model, Document } from 'mongoose'
+import mongoose, { Schema, Document } from 'mongoose';
 
-interface RestauranteInterface extends Document{
-    nome ?: {
-        type: String,
-        require: true,
-        }
+export interface IRestaurante extends Document {
+  nome: string;
 }
 
-const RestauranteSchema = new Schema({
-    nome:{
-        type: String,
-        require: true,
-        }
-    })
+const RestauranteSchema: Schema = new Schema({
+  nome: { type: String, required: true },
+});
 
-export default model<RestauranteInterface>('Restaurante', RestauranteSchema)
+// Export the model and return your IUser interface
+export default mongoose.model<IRestaurante>('Restaurante', RestauranteSchema);
+
+

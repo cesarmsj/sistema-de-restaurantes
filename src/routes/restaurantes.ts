@@ -7,7 +7,7 @@ const restauranteRoutes = Router()
 restauranteRoutes.get('/restaurantes', RestauranteController.index);
 
 // GET restaurante register page
-restauranteRoutes.get('/restaurantes/create', RestauranteController.create);
+restauranteRoutes.get('/restaurantes/create', RestauranteController.add);
 
 // POST new restaurante
 restauranteRoutes.post('/restaurantes/store', RestauranteController.store);
