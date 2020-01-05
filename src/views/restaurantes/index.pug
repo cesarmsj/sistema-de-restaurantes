@@ -32,8 +32,17 @@ block content
                 //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo restaurante
         
     .container-fluid
-    //-    table
-            each employee in employeelist
-                tr#employee_list_item    
-                td #{employee.userName}
-    
+        table#list
+            tr
+                th 
+                th
+                th Restaurantes
+            tr
+            each restaurante in restaurantes
+                tr  
+                    td 
+                        img(src="images/del.png", alt="", width="20px", height="20px")
+                    td  
+                        img(src="images/edit.png", alt="", width="20px", height="20px")
+                    td #{restaurante.nome}
+               

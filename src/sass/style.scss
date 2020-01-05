@@ -1,0 +1,62 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: white;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.navbar-custom {
+  font-size: 20px;
+  background-color: #020202;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: white;
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+  color: white;
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #ffffff;
+}
+
+#list {
+  width: 15em;
+  border-collapse: collapse;
+  
+  & th {
+    background-color: whitesmoke;
+    padding: 1em;
+    text-align: left;
+    border: 1px solid black;
+    padding: 1em; 
+  }
+    & td {
+      border: 1px solid black;
+      padding: 1em;
+    }
+  }

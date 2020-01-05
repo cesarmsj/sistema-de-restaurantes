@@ -1,4 +1,3 @@
-//import * as bodyParser from "body-parser";
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -7,6 +6,8 @@ import bodyParser from "body-parser";
 
 import indexRoutes from './routes/index'
 import restauranteRoutes from './routes/restaurantes'
+
+var sassMiddleware = require('node-sass-middleware')
 
 class App {
 
@@ -26,6 +27,13 @@ class App {
     this.express.set('view engine', 'pug')
     this.express.use(express.static(path.join(__dirname, 'public')));
     this.express.use(cors())
+    this.express.use(sassMiddleware({
+      src: __dirname + '/sass', 
+      dest: __dirname + '/public/stylesheets/',
+      debug: true,  
+      outputStyle: 'compressed',
+      //prefix:  '/stylesheets'     
+    }))
     //Allows us to receive requests with data in json format
     this.express.use(bodyParser.json({ limit: '50mb' }));
     //Allows us to receive requests with data in x-www-form-urlencoded format
