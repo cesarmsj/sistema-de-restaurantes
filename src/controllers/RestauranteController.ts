@@ -27,33 +27,26 @@ class RestauranteController{
   //}
 
   public async add(req: Request, res: Response){
-    res.render('./restaurantes/create',{ basedir : join(__dirname, '..', 'views')});
+    res.render('./restaurantes/create',{ basedir : join(__dirname, '..', 'views'), message: req.flash('sucess') });
  }
  
   public async store(req: Request, res: Response){
 
     const restaurante = await Restaurante.create(req.body);
-    restaurante.save((err, contact) => {
+    restaurante.save((err) => {
       if(err){
-          res.send(err);
+        req.flash('error','Houve um erro ao tentar cadastrar restaurante.');
+        res.send(err);
+        res.redirect('./create');
       }    
-       res.redirect('/restaurantes'); 
+      else{
+        req.flash('sucess','Restaurante cadastrado com sucesso');
+        res.redirect('./create');
+      }
+       
   });
   }
-   /*
-  public async list(req: Request, res: Response){
-    try {
-      let restaurantes: any = await Restaurante.find({});
-      restaurantes = restaurantes.map((restaurante:any) => { return {id: restaurante._id, nome: restaurante.nome}});
-      res.render('restauranteslist', {
-        'restauranteslist': restaurantes, 
-      });
-      res.json(restaurantes);
-  } catch (err) {
-      res.status(500);
-      res.end();
-      console.error('Caught error', err);
-  }*/
+  
 }
 
 /*

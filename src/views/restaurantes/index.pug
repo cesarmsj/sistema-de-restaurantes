@@ -30,6 +30,14 @@ block content
                 button.btn.btn-primary(type='submit') Pesquisar
                 a(href="/restaurantes/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo restaurante
                 //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo restaurante
+                
+                
+                //- if messages.sucess
+                    each msg in messages.sucess
+                        .info= msg
+                //- if messages.error
+                    each msg in messages.error
+                        .error= msg
         
     .container-fluid
         table#list

@@ -3,11 +3,14 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import bodyParser from "body-parser";
+import flash from "connect-flash";
+import session from "express-session";
+import sassMiddleware from "node-sass-middleware";
 
 import indexRoutes from './routes/index'
 import restauranteRoutes from './routes/restaurantes'
 
-var sassMiddleware = require('node-sass-middleware')
+//var sassMiddleware = require('node-sass-middleware')
 
 class App {
 
@@ -15,7 +18,6 @@ class App {
   
   public constructor (){
     this.express = express()
-
     this.database()
     this.middlewares();
     this.routes()
@@ -26,13 +28,28 @@ class App {
     this.express.set('views', path.join(__dirname, 'views'));
     this.express.set('view engine', 'pug')
     this.express.use(express.static(path.join(__dirname, 'public')));
-    this.express.use(cors())
+    this.express.use(cors());
+    this.express.use(flash());
+    /*
+    this.express.use((req, res, next) => {
+        res.locals.errors = req.flash("error");
+        res.locals.successes = req.flash("success");
+        next();
+    });
+    */
     this.express.use(sassMiddleware({
       src: __dirname + '/sass', 
-      dest: __dirname + '/public/stylesheets/',
+      dest: __dirname + '/public/',
       debug: true,  
       outputStyle: 'compressed',
       //prefix:  '/stylesheets'     
+    }));
+    
+    this.express.use(session({
+      secret: 'restaurantes-app',
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: true },
     }))
     //Allows us to receive requests with data in json format
     this.express.use(bodyParser.json({ limit: '50mb' }));
@@ -42,7 +59,8 @@ class App {
   
   private database(): void {
     mongoose.connect('mongodb://127.0.0.1:27017/restaurante', {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     })
   };
   

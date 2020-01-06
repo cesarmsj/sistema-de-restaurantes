@@ -29,3 +29,5 @@ block content
                     input#nome.form-control(type='text', placeholder='nome do restaurante' name='nome')
                 a(href="/restaurantes", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
                 button.btn.btn-primary(type='submit' style='margin-left: 10px;') Salvar
+                if message && message.length
+                    strong #{message}
