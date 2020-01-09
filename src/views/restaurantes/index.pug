@@ -49,8 +49,12 @@ block content
             each restaurante in restaurantes
                 tr  
                     td 
-                        img(src="images/del.png", alt="", width="20px", height="20px")
-                    td  
-                        img(src="images/edit.png", alt="", width="20px", height="20px")
+                        form(method='post' action='/restaurante/:id/delete')
+                            //- input#id.form-control(type='text', name='id' value='#{restaurante._id}')
+                            button.btn.btn-primary(type='submit', name='id' value='#{restaurante._id}') 
+                                img(src="images/del.png", alt="", width="20px", height="20px")
+                    td 
+                        a(href='/restaurantes/edit/:#{restaurante._id}') 
+                            img(src="images/edit.png", alt="", width="20px", height="20px")
                     td #{restaurante.nome}
                

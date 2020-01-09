@@ -16,7 +16,7 @@ restauranteRoutes.post('/restaurantes/store', RestauranteController.store);
 //router.post('/restaurante/create', restaurante_controller.restaurante_create_post);
 
 // GET request to delete Book.
-//router.get('/restaurante/:id/delete', restaurante_controller.restaurante_delete_get);
+restauranteRoutes.post('/restaurante/:id/delete', RestauranteController.delete);
 
 // POST request to delete Book.
 //router.post('/restaurante/:id/delete', restaurante_controller.restaurante_delete_post);
@@ -25,7 +25,7 @@ restauranteRoutes.post('/restaurantes/store', RestauranteController.store);
 //router.get('/restaurante/:id/update', restaurante_controller.restaurante_update_get);
 
 // POST request to update Book.
-//router.post('/restaurante/:id/update', restaurante_controller.restaurante_update_post);
+restauranteRoutes.post('/restaurante/:id/update', RestauranteController.update);
 
 // GET request for one Book.
 //router.get('/restaurante/:id', restaurante_controller.book_detail);

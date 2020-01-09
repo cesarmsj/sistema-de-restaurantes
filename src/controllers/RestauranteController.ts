@@ -5,7 +5,6 @@ import Restaurante from "../schemas/restaurante";
 class RestauranteController{
 
   public async index(req: Request, res: Response){
-    //res.render('./restaurantes/index',{ basedir : join(__dirname, '..', 'views')});
     Restaurante.find({}, (err, restaurantes) => {
       res.render('./restaurantes/index',{
          basedir : join(__dirname, '..', 'views'),
@@ -46,8 +45,40 @@ class RestauranteController{
        
   });
   }
+
+  public async delete(req: Request, res: Response) { 
+      Restaurante.deleteOne({ _id: req.params.id }, (err) => {
+        if(err){
+            res.send(err);
+            console.log(err);
+        }
+        else{
+          req.flash('sucess','Restaurante deletado com sucesso');
+          res.redirect('/restaurantes');
+        }
+    });
+  }
+
+  public async edit(req: Request, res: Response){
+    Restaurante.find({ _id: req.params.contactId }, (err, restaurante) => {
+      res.render('./restaurantes/index',{
+         basedir : join(__dirname, '..', 'views'),
+         restaurante: restaurante})
+    })
+    };
+
+  public async update(req: Request, res: Response) {           
+    Restaurante.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+        if(err){
+            res.send(err);
+        }
+        res.json(contact);
+    });
+  }
   
 }
+
+
 
 /*
  public async update(req: Request, res: Response): Promise<Response>{
