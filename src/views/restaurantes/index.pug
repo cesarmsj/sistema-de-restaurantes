@@ -49,12 +49,12 @@ block content
             each restaurante in restaurantes
                 tr  
                     td 
-                        form(method='post' action='/restaurante/:id/delete')
+                        form(method='post' action='/restaurantes/delete/' + restaurante._id)
                             //- input#id.form-control(type='text', name='id' value='#{restaurante._id}')
-                            button.btn.btn-primary(type='submit', name='id' value='#{restaurante._id}') 
+                            <input type="image" src="images/del.png" alt="Submit", width="20px", height="20px" name="_id", value=restaurante._id >
+                            //- button.btn.btn-primary(type='submit', name='id' value='#{restaurante._id}') 
                                 img(src="images/del.png", alt="", width="20px", height="20px")
                     td 
                         a(href='/restaurantes/edit/:#{restaurante._id}') 
                             img(src="images/edit.png", alt="", width="20px", height="20px")
                     td #{restaurante.nome}
-               

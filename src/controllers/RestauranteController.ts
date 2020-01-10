@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { join } from 'path';
 import Restaurante from "../schemas/restaurante";
+import { ObjectId } from 'mongodb';
 
 class RestauranteController{
 
@@ -47,16 +48,25 @@ class RestauranteController{
   }
 
   public async delete(req: Request, res: Response) { 
-      Restaurante.deleteOne({ _id: req.params.id }, (err) => {
-        if(err){
-            res.send(err);
-            console.log(err);
-        }
-        else{
-          req.flash('sucess','Restaurante deletado com sucesso');
-          res.redirect('/restaurantes');
-        }
-    });
+      // Set our internal DB variable
+     // var id = JSON.parse(req.params.id);
+      var id = req.params.id;
+      console.log(id)
+      // Set our collection
+      // Submit to the DB
+      Restaurante.deleteOne({
+          "_id": id
+      }, (err) => {
+          if (err) {
+              // If it failed, return error
+              res.send("Falha ao remover restaurante.");
+          }
+          else {
+              // And forward to success page
+              req.flash('sucess','Restaurante removido com sucesso');
+              return res.redirect('/restaurantes');
+          }
+        });
   }
 
   public async edit(req: Request, res: Response){
@@ -68,7 +78,7 @@ class RestauranteController{
     };
 
   public async update(req: Request, res: Response) {           
-    Restaurante.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+    Restaurante.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, contact) => {
         if(err){
             res.send(err);
         }
