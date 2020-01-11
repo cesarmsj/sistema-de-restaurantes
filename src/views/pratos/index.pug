@@ -23,10 +23,10 @@ block content
     .container-fluid
         fieldset(class="scheduler-border" style="height:200px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
             legend(class="scheduler-border" style="font-size:14px;") Filtros
-            form(method='get' action='/search')
+            form(method='get' action='')
                 div.form-group
-                    label(for='name') Nome:
-                    input#name.form-control(type='text', placeholder='nome do prato' name='name')
+                    label(for='nome') Nome:
+                    input#nome.form-control(type='text', placeholder='nome do prato' name='nome')
                 button.btn.btn-primary(type='submit') Pesquisar
                 a(href="/pratos/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo prato
                 //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo prato
@@ -55,7 +55,7 @@ block content
                             <input type="image" src="images/del.png" alt="Submit", width="20px", height="20px" name="_id">
                     td 
                         a(href='/pratos/edit/' + prato._id ) 
-                            img(src="images/edit.png", alt="", width="100px", height="100px")
+                            img(src="images/edit.png", alt="", width="20px", height="20px")
                     td #{prato.restaurante}
                     td #{prato.nome}
                     td #{prato.preco}

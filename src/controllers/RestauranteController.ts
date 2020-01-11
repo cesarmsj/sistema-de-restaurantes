@@ -20,8 +20,6 @@ class RestauranteController{
            restaurantes: restaurantes})
       })
     }
-    console.log(nome);
-    
     };
 
   public async add(req: Request, res: Response){

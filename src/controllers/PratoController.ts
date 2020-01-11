@@ -1,19 +1,42 @@
 import { Request, Response } from 'express'
 import { join } from 'path';
 import Prato from "../schemas/prato";
+import Restaurante from "../schemas/restaurante";
 
 class PratoController{
 
   public async index(req: Request, res: Response){
+    const nome = req.query.nome;
+    if (nome == undefined){
+      Prato.find({}, (err, pratos) => {
+        res.render('./pratos/index',{
+           basedir : join(__dirname, '..', 'views'),
+           pratos: pratos})
+      })
+    }
+    else{
+      Prato.find({"nome": req.query.nome}, (err, pratos) => {
+        res.render('./pratos/index',{
+           basedir : join(__dirname, '..', 'views'),
+           pratos: pratos})
+      })
+    }
+    /*
     Prato.find({}, (err, pratos) => {
       res.render('./pratos/index',{
          basedir : join(__dirname, '..', 'views'),
          pratos: pratos})
-    })
+    })*/
     };
 
   public async add(req: Request, res: Response){
-    res.render('./pratos/create',{ basedir : join(__dirname, '..', 'views'), message: req.flash('sucess') });
+    Restaurante.find({}, (err, restaurantes) => {
+    res.render('./pratos/create',{
+       basedir : join(__dirname, '..', 'views'), 
+       message: req.flash('sucess'),
+       restaurantes: restaurantes,
+       });
+ });
  }
  
   public async store(req: Request, res: Response){
@@ -27,7 +50,7 @@ class PratoController{
       }    
       else{
         req.flash('sucess','Prato cadastrado com sucesso');
-        res.redirect('./create');
+        return res.redirect('/pratos');
       }
        
   });

@@ -8,7 +8,7 @@ pratoRoutes.get('/pratos/create', PratoController.add);
 pratoRoutes.post('/pratos/store', PratoController.store);
 pratoRoutes.post('/pratos/delete/:id', PratoController.delete);
 pratoRoutes.get('/pratos/edit/:id', PratoController.edit);
-pratoRoutes.post('/prato/:id/update', PratoController.update);
+pratoRoutes.post('/prato/update/:id', PratoController.update);
 // GET request for one Book.
 //router.get('/prato/:id', prato_controller.book_detail);
 

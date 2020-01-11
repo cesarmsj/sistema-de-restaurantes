@@ -21,12 +21,18 @@ block content
     .container-fluid
         h1(style="font-size:22px; margin-top: 2%") CADASTRO DE PRATO
     .container-fluid
-        fieldset(class="scheduler-border" style="height:200px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
+        fieldset(class="scheduler-border" style="height:300px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
             legend(class="scheduler-border" style="font-size:14px;") Dados
             form(method='post' action='/pratos/store')
                 div.form-group
-                    label(for='name') Nome do prato:
+                    label(for='restaurante') Restaurante
+                    select#restaurante.form-control(type='text', placeholder='restaurante' name='restaurante')
+                        each restaurante in restaurantes
+                            option(value=restaurante.nome) #{restaurante.nome}
+                    label(for='nome') Prato
                     input#nome.form-control(type='text', placeholder='nome do prato' name='nome')
+                    label(for='preco') Preço(R$):
+                    input#preco.form-control(type='number', placeholder='preço do prato' name='preco' step="0.01")
                 a(href="/pratos", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
                 button.btn.btn-primary(type='submit' style='margin-left: 10px;') Salvar
                 if message && message.length
