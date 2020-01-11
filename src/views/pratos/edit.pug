@@ -1,0 +1,11 @@
+extends /layouts/main
+
+block content
+
+    .container-fluid
+        form(method='post' action='/pratos/update' style="margin-top: 2%")
+                    div.form-group
+                        label(for='name') Nome do prato:
+                        input(type='text', placeholder='Nome do prato', name='nome', value=prato.nome) 
+                    a(href="/pratos", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
+                    button.btn.btn-primary(type='submit' style='margin-left: 10px;') Atualizar

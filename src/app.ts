@@ -9,6 +9,7 @@ import sassMiddleware from "node-sass-middleware";
 
 import indexRoutes from './routes/index'
 import restauranteRoutes from './routes/restaurantes'
+import pratoRoutes from './routes/pratos'
 
 //var sassMiddleware = require('node-sass-middleware')
 
@@ -67,6 +68,7 @@ class App {
   private routes(): void {
     this.express.use(indexRoutes)
     this.express.use(restauranteRoutes)
+    this.express.use(pratoRoutes)
 
   };
 };

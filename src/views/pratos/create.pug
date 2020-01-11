@@ -1,0 +1,33 @@
+extends /layouts/main
+
+block content
+
+    style(type='text/css').
+        fieldset.scheduler-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.9em 0 !important;
+        -webkit-box-shadow:  0px 0px 0px 0px #000;
+                box-shadow:  0px 0px 0px 0px #000;
+        }
+        legend.scheduler-border {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width: auto; // fixes the problem 1
+            border-bottom: none; // fixes the problem 2
+        }
+
+    .container-fluid
+        h1(style="font-size:22px; margin-top: 2%") CADASTRO DE PRATO
+    .container-fluid
+        fieldset(class="scheduler-border" style="height:200px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
+            legend(class="scheduler-border" style="font-size:14px;") Dados
+            form(method='post' action='/pratos/store')
+                div.form-group
+                    label(for='name') Nome do prato:
+                    input#nome.form-control(type='text', placeholder='nome do prato' name='nome')
+                a(href="/pratos", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
+                button.btn.btn-primary(type='submit' style='margin-left: 10px;') Salvar
+                if message && message.length
+                    strong #{message}

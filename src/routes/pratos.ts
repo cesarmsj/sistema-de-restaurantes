@@ -1,32 +1,16 @@
-//var express = require('express');
-import { Request, Response } from "express";
-var router = express.Router();
+import { Router } from 'express'
+import PratoController from '../controllers/PratoController'
 
-router.get('/', (req, res) => {
-    res.render('prato')
-  }) 
+const pratoRoutes = Router()
 
-module.exports = router; */
+pratoRoutes.get('/pratos', PratoController.index);
+pratoRoutes.get('/pratos/create', PratoController.add);
+pratoRoutes.post('/pratos/store', PratoController.store);
+pratoRoutes.post('/pratos/delete/:id', PratoController.delete);
+pratoRoutes.get('/pratos/edit/:id', PratoController.edit);
+pratoRoutes.post('/prato/:id/update', PratoController.update);
+// GET request for one Book.
+//router.get('/prato/:id', prato_controller.book_detail);
 
-/*import { Request, Response } from "express";
 
-export let allPratos = (req: Request, res: Response) => {
-  res.send("Returns all Pratos");
-};
-
-export let getPrato = (req: Request, res: Response) => {
-  res.send("Returns one prato");
-};
-
-export let deletePrato = (req: Request, res: Response) => {
-  res.send("Returns one prato");
-};
-
-export let updatePrato = (req: Request, res: Response) => {
-  res.send("Returns one prato");
-};
-
-export let addPrato = (req: Request, res: Response) => {
-  res.send("Returns one prato");
-};
-*/
+export default pratoRoutes

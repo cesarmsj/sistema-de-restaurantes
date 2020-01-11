@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { join } from 'path';
 import Restaurante from "../schemas/restaurante";
-import { ObjectId } from 'mongodb';
 
 class RestauranteController{
 
@@ -12,19 +11,6 @@ class RestauranteController{
          restaurantes: restaurantes})
     })
     };
-    /*
-    try {
-      let restaurantes: any = await Restaurante.find({});
-      restaurantes = restaurantes.map((restaurante:any) => { return {id: restaurante._id, nome: restaurante.nome}});
-      res.render('restauranteslist', {
-        'restauranteslist': restaurantes.lenght, 
-      });
-    } catch (err) {
-        res.status(500);
-        res.end();
-        console.error('Caught error', err);
-  } */
-  //}
 
   public async add(req: Request, res: Response){
     res.render('./restaurantes/create',{ basedir : join(__dirname, '..', 'views'), message: req.flash('sucess') });
@@ -48,17 +34,11 @@ class RestauranteController{
   }
 
   public async delete(req: Request, res: Response) { 
-      // Set our internal DB variable
-     // var id = JSON.parse(req.params.id);
       var id = req.params.id;
-      console.log(id)
-      // Set our collection
-      // Submit to the DB
       Restaurante.deleteOne({
           "_id": id
       }, (err) => {
           if (err) {
-              // If it failed, return error
               res.send("Falha ao remover restaurante.");
           }
           else {
@@ -69,13 +49,14 @@ class RestauranteController{
         });
   }
 
-  public async edit(req: Request, res: Response){
-    Restaurante.find({ _id: req.params.contactId }, (err, restaurante) => {
-      res.render('./restaurantes/index',{
-         basedir : join(__dirname, '..', 'views'),
-         restaurante: restaurante})
-    })
-    };
+public async edit(req: Request, res: Response){
+  Restaurante.find({ _id: req.params.id }, (err, restaurante) => {
+    console.log(restaurante);
+    res.render('./restaurantes/edit',{
+        basedir : join(__dirname, '..', 'views'),
+        restaurante: restaurante})
+  })
+};
 
   public async update(req: Request, res: Response) {           
     Restaurante.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, contact) => {

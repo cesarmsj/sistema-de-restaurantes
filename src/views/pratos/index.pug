@@ -26,10 +26,10 @@ block content
             form(method='get' action='/search')
                 div.form-group
                     label(for='name') Nome:
-                    input#name.form-control(type='text', placeholder='nome do restaurante' name='name')
+                    input#name.form-control(type='text', placeholder='nome do prato' name='name')
                 button.btn.btn-primary(type='submit') Pesquisar
-                a(href="/restaurantes/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo restaurante
-                //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo restaurante
+                a(href="/pratos/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo prato
+                //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo prato
                 
                 
                 //- if messages.sucess
@@ -44,14 +44,18 @@ block content
             tr
                 th 
                 th
-                th Restaurantes
+                th Restaurante
+                th Prato
+                th Preço
             tr
-            each restaurante in restaurantes
+            each prato in pratos
                 tr  
                     td 
-                        form(method='post' action='/restaurantes/delete/' + restaurante._id)
+                        form(method='post' action='/pratos/delete/' + prato._id)
                             <input type="image" src="images/del.png" alt="Submit", width="20px", height="20px" name="_id">
                     td 
-                        a(href='/restaurantes/edit/' + restaurante._id ) 
+                        a(href='/pratos/edit/' + prato._id ) 
                             img(src="images/edit.png", alt="", width="100px", height="100px")
-                    td #{restaurante.nome}
+                    td #{prato.restaurante}
+                    td #{prato.nome}
+                    td #{prato.preco}
