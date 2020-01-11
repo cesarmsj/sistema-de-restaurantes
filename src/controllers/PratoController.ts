@@ -40,21 +40,36 @@ class PratoController{
  }
  
   public async store(req: Request, res: Response){
-
-    const prato = await Prato.create(req.body);
-    prato.save((err) => {
-      if(err){
-        req.flash('error','Houve um erro ao tentar cadastrar o prato.');
-        res.send(err);
-        res.redirect('./create');
-      }    
-      else{
-        req.flash('sucess','Prato cadastrado com sucesso');
-        return res.redirect('/pratos');
-      }
-       
-  });
-  }
+    
+    Prato.findOneAndUpdate({ $and : [ 
+        { nome: req.body.nome },
+        { restaurante: req.body.restaurante }  
+        ]
+      }, req.body, { new: true }, async (err, result) => {
+        if(err){
+            res.send(err);
+        }else
+        {
+          if(result == null){
+            const prato = await Prato.create(req.body);
+            prato.save((err) => {
+              if(err){
+                req.flash('error','Houve um erro ao tentar cadastrar o prato.');
+                res.send(err);
+                res.redirect('./create');
+              }    
+              else{
+                req.flash('sucess','Prato cadastrado com sucesso');
+                return res.redirect('/pratos');
+              } 
+            });
+          }
+          else{
+            return res.redirect('/pratos');
+          }
+        }
+      });
+    };
 
   public async delete(req: Request, res: Response) { 
       var id = req.params.id;

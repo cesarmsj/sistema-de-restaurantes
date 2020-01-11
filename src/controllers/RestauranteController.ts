@@ -26,22 +26,35 @@ class RestauranteController{
     res.render('./restaurantes/create',{ basedir : join(__dirname, '..', 'views'), message: req.flash('sucess') });
  }
  
-  public async store(req: Request, res: Response){
-
-    const restaurante = await Restaurante.create(req.body);
-    restaurante.save((err) => {
+ public async store(req: Request, res: Response){
+    
+  Restaurante.findOneAndUpdate({  
+       nome: req.body.nome ,  
+    }, req.body, { new: true }, async (err, result) => {
       if(err){
-        req.flash('error','Houve um erro ao tentar cadastrar restaurante.');
-        res.send(err);
-        res.redirect('./create');
-      }    
-      else{
-        req.flash('sucess','Restaurante cadastrado com sucesso');
-        res.redirect('./create');
+          res.send(err);
+      }else
+      {
+        if(result == null){
+          const restaurante = await Restaurante.create(req.body);
+          restaurante.save((err) => {
+            if(err){
+              req.flash('error','Houve um erro ao tentar cadastrar o restaurante.');
+              res.send(err);
+              res.redirect('./create');
+            }    
+            else{
+              req.flash('sucess','Restaurante cadastrado com sucesso');
+              return res.redirect('/restaurantes');
+            } 
+          });
+        }
+        else{
+          return res.redirect('/restaurantes');
+        }
       }
-       
-  });
-  }
+    });
+  };
 
   public async delete(req: Request, res: Response) { 
       var id = req.params.id;
