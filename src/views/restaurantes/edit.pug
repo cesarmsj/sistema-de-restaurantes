@@ -3,9 +3,9 @@ extends /layouts/main
 block content
 
     .container-fluid
-        form(method='post' action='/restaurantes/update' style="margin-top: 2%")
+        form(method='post' style="margin-top: 2%" action='/restaurantes/update/' + restaurante._id)
                     div.form-group
-                        label(for='name') Nome do restaurante:
+                        label(for='nome') Nome do restaurante:
                         input(type='text', placeholder='Nome do restaurante', name='nome', value=restaurante.nome) 
                     a(href="/restaurantes", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
                     button.btn.btn-primary(type='submit' style='margin-left: 10px;') Atualizar

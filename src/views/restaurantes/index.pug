@@ -23,10 +23,10 @@ block content
     .container-fluid
         fieldset(class="scheduler-border" style="height:200px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
             legend(class="scheduler-border" style="font-size:14px;") Filtros
-            form(method='get' action='/search')
+            form(method='post' action='/restaurantes/findByNome/')
                 div.form-group
-                    label(for='name') Nome:
-                    input#name.form-control(type='text', placeholder='nome do restaurante' name='name')
+                    label(for='nome') Nome:
+                    input#nome.form-control(type='text', placeholder='nome do restaurante' name='nome')
                 button.btn.btn-primary(type='submit') Pesquisar
                 a(href="/restaurantes/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo restaurante
                 //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo restaurante

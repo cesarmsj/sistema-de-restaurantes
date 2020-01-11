@@ -62,6 +62,7 @@ class App {
     mongoose.connect('mongodb://127.0.0.1:27017/restaurante', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false
     })
   };
   

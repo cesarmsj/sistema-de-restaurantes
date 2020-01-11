@@ -50,7 +50,7 @@ class RestauranteController{
   }
 
 public async edit(req: Request, res: Response){
-  Restaurante.find({ _id: req.params.id }, (err, restaurante) => {
+  Restaurante.findOne({ _id: req.params.id }, (err, restaurante) => {
     console.log(restaurante);
     res.render('./restaurantes/edit',{
         basedir : join(__dirname, '..', 'views'),
@@ -63,20 +63,22 @@ public async edit(req: Request, res: Response){
         if(err){
             res.send(err);
         }
-        res.json(contact);
+        return res.redirect('/restaurantes');
     });
-  }
+  };
+
+  public async findByNome(req: Request, res: Response){
+    Restaurante.find( {"nome": req.body.nome }, (err, restaurantes) => {
+      console.log(req.body.nome);
+      res.render('./restaurantes/index',{
+         basedir : join(__dirname, '..', 'views'),
+         restaurantes: restaurantes})
+    })
+    };
   
 }
 
 
-
-/*
- public async update(req: Request, res: Response): Promise<Response>{
-  const restaurante = await Restaurante.update()
-  return res.json(restaurante)
-  }
- */ 
 
 
 export default new RestauranteController()
