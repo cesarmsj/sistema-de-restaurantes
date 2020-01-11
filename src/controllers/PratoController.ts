@@ -73,22 +73,25 @@ class PratoController{
   }
 
 public async edit(req: Request, res: Response){
-  Prato.find({ _id: req.params.id }, (err, prato) => {
-    console.log(prato);
-    res.render('./pratos/edit',{
-        basedir : join(__dirname, '..', 'views'),
-        prato: prato})
+  Prato.findOne({ _id: req.params.id }, (err, prato) => {
+    Restaurante.find({}, (err, restaurantes) => {
+      console.log(prato);
+      res.render('./pratos/edit',{
+          basedir : join(__dirname, '..', 'views'),
+          prato: prato,
+          restaurantes: restaurantes})
+      })
   })
 };
 
-  public async update(req: Request, res: Response) {           
-    Prato.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, contact) => {
-        if(err){
-            res.send(err);
-        }
-        res.json(contact);
-    });
-  }
+public async update(req: Request, res: Response) {           
+  Prato.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, contact) => {
+      if(err){
+          res.send(err);
+      }
+      return res.redirect('/pratos');
+  });
+};
   
 }
 

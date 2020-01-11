@@ -3,9 +3,16 @@ extends /layouts/main
 block content
 
     .container-fluid
-        form(method='post' action='/pratos/update' style="margin-top: 2%")
+        form(method='post' action='/pratos/update/' + prato._id style="margin-top: 2%")
                     div.form-group
-                        label(for='name') Nome do prato:
-                        input(type='text', placeholder='Nome do prato', name='nome', value=prato.nome) 
+                        select#restaurante.form-control(type='text', placeholder='restaurante' name='restaurante')
+                            option(value=prato.restaurante) #{prato.restaurante}
+                            each restaurante in restaurantes
+                                option(value=restaurante.nome) #{restaurante.nome}
+                        label(for='nome') Prato
+                        input#nome.form-control(type='text', placeholder='nome do prato' name='nome' value=prato.nome)
+                        label(for='preco') Preço(R$):
+                        input#preco.form-control(type='number', placeholder='preço do prato' name='preco' step="0.01" value=prato.preco)
+                    
                     a(href="/pratos", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cancelar
                     button.btn.btn-primary(type='submit' style='margin-left: 10px;') Atualizar
