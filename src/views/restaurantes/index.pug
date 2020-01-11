@@ -23,7 +23,7 @@ block content
     .container-fluid
         fieldset(class="scheduler-border" style="height:200px; width:600px; border:2px #cccccc solid; border-radius: 10px;")
             legend(class="scheduler-border" style="font-size:14px;") Filtros
-            form(method='post' action='/restaurantes/findByNome/')
+            form(method='get' action='')
                 div.form-group
                     label(for='nome') Nome:
                     input#nome.form-control(type='text', placeholder='nome do restaurante' name='nome')
@@ -53,5 +53,5 @@ block content
                             <input type="image" src="images/del.png" alt="Submit", width="20px", height="20px" name="_id">
                     td 
                         a(href='/restaurantes/edit/' + restaurante._id ) 
-                            img(src="images/edit.png", alt="", width="100px", height="100px")
+                            img(src="/images/edit.png", alt="", width="100px", height="100px")
                     td #{restaurante.nome}

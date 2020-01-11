@@ -5,11 +5,23 @@ import Restaurante from "../schemas/restaurante";
 class RestauranteController{
 
   public async index(req: Request, res: Response){
-    Restaurante.find({}, (err, restaurantes) => {
-      res.render('./restaurantes/index',{
-         basedir : join(__dirname, '..', 'views'),
-         restaurantes: restaurantes})
-    })
+    const nome = req.query.nome;
+    if (nome == undefined){
+      Restaurante.find({}, (err, restaurantes) => {
+        res.render('./restaurantes/index',{
+           basedir : join(__dirname, '..', 'views'),
+           restaurantes: restaurantes})
+      })
+    }
+    else{
+      Restaurante.find({"nome": req.query.nome}, (err, restaurantes) => {
+        res.render('./restaurantes/index',{
+           basedir : join(__dirname, '..', 'views'),
+           restaurantes: restaurantes})
+      })
+    }
+    console.log(nome);
+    
     };
 
   public async add(req: Request, res: Response){
@@ -66,15 +78,6 @@ public async edit(req: Request, res: Response){
         return res.redirect('/restaurantes');
     });
   };
-
-  public async findByNome(req: Request, res: Response){
-    Restaurante.find( {"nome": req.body.nome }, (err, restaurantes) => {
-      console.log(req.body.nome);
-      res.render('./restaurantes/index',{
-         basedir : join(__dirname, '..', 'views'),
-         restaurantes: restaurantes})
-    })
-    };
   
 }
 
