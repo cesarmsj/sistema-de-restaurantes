@@ -29,15 +29,19 @@ block content
                     input#nome.form-control(type='text', placeholder='nome do restaurante' name='nome')
                 button.btn.btn-primary(type='submit') Pesquisar
                 a(href="/restaurantes/create", class="btn btn-primary btn-lg" style='margin-left: 10px;') Cadastrar novo restaurante
-                //- a(class='button' href='google.com' style='margin-left: 10px;') Cadastrar novo restaurante
-                
-                
-                //- if messages.sucess
-                    each msg in messages.sucess
-                        .info= msg
-                //- if messages.error
-                    each msg in messages.error
-                        .error= msg
+
+                div#flashes
+                    
+                    if typeof messages.error !== 'undefined' && messages.error.length > 0  
+                        div.alert.alert-danger(style="margin-top: 20px; height: 10px; text-align: center")
+                            p.error  #{ messages.error }                      
+                    if typeof messages.success !== 'undefined' && messages.success.length > 0 
+                        div.alert.alert-success(style="margin-top: 20px; height: 10px; text-align: center") 
+                            p.success   #{ messages.success }
+                    if typeof messages.update !== 'undefined' && messages.update.length > 0
+                        div.alert.alert-success(style="margin-top: 20px; height: 10px; text-align: center")  
+                            p.update   #{ messages.update }
+                    
         
     .container-fluid
         table#list

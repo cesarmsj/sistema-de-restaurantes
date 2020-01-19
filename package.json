@@ -46,6 +46,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/body-parser": "^1.17.1",
+    "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.6",
     "@types/mongoose": "^5.5.36",
     "@types/node-sass": "^4.11.0",
@@ -53,7 +54,7 @@
     "@typescript-eslint/parser": "^2.13.0",
     "css-loader": "^3.4.1",
     "eslint": "^6.8.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.1.2",
     "sucrase": "^3.11.0",

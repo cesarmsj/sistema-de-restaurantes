@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { join } from 'path';
 import Restaurante from "../schemas/restaurante";
 
@@ -10,23 +10,35 @@ class RestauranteController{
       Restaurante.find({}, (err, restaurantes) => {
         res.render('./restaurantes/index',{
            basedir : join(__dirname, '..', 'views'),
-           restaurantes: restaurantes})
+           restaurantes: restaurantes,
+           messages: { 
+             success: req.flash('success'),
+             error: req.flash('error'),
+          } 
+          })
       })
     }
     else{
-      Restaurante.find({"nome": req.query.nome}, (err, restaurantes) => {
-        res.render('./restaurantes/index',{
-           basedir : join(__dirname, '..', 'views'),
-           restaurantes: restaurantes})
-      })
-    }
+        var busca = Restaurante.find({"nome": req.query.nome}, (err, restaurantes) => {
+          busca.count( (err, count) => {
+              req.flash("success", "Foram encontrados " + count + " restaurante(s) com este nome.");
+              res.render('./restaurantes/index',{
+              basedir : join(__dirname, '..', 'views'),
+              restaurantes: restaurantes,
+              messages: { 
+                success: req.flash('success'),
+              } 
+            })
+          })
+        })
+      }
     };
 
   public async add(req: Request, res: Response){
     res.render('./restaurantes/create',{ basedir : join(__dirname, '..', 'views'), message: req.flash('sucess') });
  }
  
- public async store(req: Request, res: Response){
+ public async store(req: Request, res: Response, next: NextFunction ){
     
   Restaurante.findOneAndUpdate({  
        nome: req.body.nome ,  
@@ -39,17 +51,17 @@ class RestauranteController{
           const restaurante = await Restaurante.create(req.body);
           restaurante.save((err) => {
             if(err){
-              req.flash('error','Houve um erro ao tentar cadastrar o restaurante.');
-              res.send(err);
-              res.redirect('./create');
+              req.flash('error','Houve um erro ao tentar cadastrar o restaurante: ' + err);
+              return res.redirect('/restaurantes');
             }    
             else{
-              req.flash('sucess','Restaurante cadastrado com sucesso');
+              req.flash("success", "Restaurante cadastrado com sucesso.");
               return res.redirect('/restaurantes');
             } 
           });
         }
         else{
+          req.flash("success","Restaurante atualizado com sucesso.")
           return res.redirect('/restaurantes');
         }
       }
@@ -62,11 +74,10 @@ class RestauranteController{
           "_id": id
       }, (err) => {
           if (err) {
-              res.send("Falha ao remover restaurante.");
+            req.flash('error','Não foi possível remover o restaurante.');
           }
           else {
-              // And forward to success page
-              req.flash('sucess','Restaurante removido com sucesso');
+              req.flash('success','Restaurante removido com sucesso');
               return res.redirect('/restaurantes');
           }
         });
@@ -86,13 +97,11 @@ public async edit(req: Request, res: Response){
         if(err){
             res.send(err);
         }
+        req.flash("success","Restaurante atualizado com sucesso.")
         return res.redirect('/restaurantes');
     });
   };
   
 }
-
-
-
 
 export default new RestauranteController()

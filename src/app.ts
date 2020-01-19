@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import bodyParser from "body-parser";
 import flash from "connect-flash";
+import cookieParser from "cookie-parser";
 import session from "express-session";
 import sassMiddleware from "node-sass-middleware";
 
@@ -30,32 +31,22 @@ class App {
     this.express.set('view engine', 'pug')
     this.express.use(express.static(path.join(__dirname, 'public')));
     this.express.use(cors());
-    this.express.use(flash());
-    /*
-    this.express.use((req, res, next) => {
-        res.locals.errors = req.flash("error");
-        res.locals.successes = req.flash("success");
-        next();
-    });
-    */
     this.express.use(sassMiddleware({
       src: __dirname + '/sass', 
       dest: __dirname + '/public/',
       debug: true,  
-      outputStyle: 'compressed',
-      //prefix:  '/stylesheets'     
+      outputStyle: 'compressed',    
     }));
-    
-    this.express.use(session({
-      secret: 'restaurantes-app',
-      resave: false,
-      saveUninitialized: true,
-      cookie: { secure: true },
-    }))
-    //Allows us to receive requests with data in json format
     this.express.use(bodyParser.json({ limit: '50mb' }));
-    //Allows us to receive requests with data in x-www-form-urlencoded format
     this.express.use(bodyParser.urlencoded({ limit: '50mb', extended:true}));
+    this.express.use(cookieParser());
+    this.express.use(session({ 
+      secret: 'zxcv', 
+      cookie: { maxAge: 60000 },
+      resave: true,
+      saveUninitialized: true
+    }));
+    this.express.use(flash());
   };
   
   private database(): void {
