@@ -38,7 +38,7 @@
     "popper.js": "^1.16.0",
     "postcss-typescript-css": "^0.2.1",
     "prettier": "^1.19.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-bootstrap": "0.0.16",
     "req-flash": "0.0.3"
   },
